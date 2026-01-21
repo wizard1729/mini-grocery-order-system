@@ -37,3 +37,4 @@ C:\Users\Admin\Downloads\MiniGroceryOrderSystem\obj\Debug\net10.0\refint\MiniGro
 C:\Users\Admin\Downloads\MiniGroceryOrderSystem\obj\Debug\net10.0\MiniGroceryOrderSystem.pdb
 C:\Users\Admin\Downloads\MiniGroceryOrderSystem\obj\Debug\net10.0\MiniGroceryOrderSystem.genruntimeconfig.cache
 C:\Users\Admin\Downloads\MiniGroceryOrderSystem\obj\Debug\net10.0\ref\MiniGroceryOrderSystem.dll
+C:\Users\Admin\Downloads\MiniGroceryOrderSystem\obj\Debug\net10.0\MiniGroceryOrderSystem.sourcelink.json

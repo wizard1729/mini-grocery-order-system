@@ -1,174 +1,109 @@
-🛒 Mini Grocery Order System
+# 🛒 Mini Grocery Order System
 
-ASP.NET Core Web API | Clean Architecture Demo Project
+ASP.NET Core Web API | Demo Backend Project
 
-📌 Overview
+---
 
-The Mini Grocery Order System is a backend REST API built using ASP.NET Core Web API.
-It demonstrates clean backend design principles such as layered architecture, separation of concerns, transaction handling, and RESTful API design.
+## 📌 Overview
 
-This project was developed as a demo task to showcase backend engineering fundamentals.
+Mini Grocery Order System is a backend REST API built using **ASP.NET Core Web API**.  
+It demonstrates clean backend architecture, business logic handling, and safe order processing.
 
-🎯 Problem Statement
+This project was developed as a **demo task** to showcase backend engineering fundamentals.
+
+---
+
+## 🎯 Problem Statement
 
 1. Display available grocery products
-
 2. Allow users to place orders
-
 3. Prevent orders if sufficient stock is not available
+4. Ensure stock updates and order creation happen safely
 
-4. Ensure stock updates and order creation happen atomically
+---
 
-✅ Solution Highlights
+## 🧩 Task 1 – Product Listing
 
-1. Clean separation between Controller, Service, and Repository
+### ✔ Features
+- Fetch all available products
+- Each product contains:
+  - `Id`
+  - `Name`
+  - `Price`
+  - `Stock`
 
-2. Business logic isolated in the Service layer
+### 🔗 API Endpoint
 
-3. Order placement handled inside a single database transaction
+GET /products
 
-4. Lightweight In-Memory Database for easy setup
+## 🧩 Task 2 – Safe Order Placement (Concurrency Handling)
 
-5. Fully testable via Swagger UI
+### ✔ Objective
+Ensure that **multiple users cannot place orders exceeding available stock**.
 
-🧱 Architecture
+### ✔ Solution Approach
+- Stock is checked before placing an order
+- Order is rejected if stock is insufficient
+- Stock is updated only after successful validation
+- Order creation and stock update occur together
 
-The application follows a layered architecture:
+### 🔗 API Endpoint
 
-Controller Layer
-       ↓
-Service Layer (Business Logic + Transactions)
-       ↓
-Repository Layer (Data Access)
-       ↓
-EF Core In-Memory Database
+POST /orders
 
-Why this architecture?
 
-1. Improves maintainability
+### 🔢 Parameters
+| Name | Type | Description |
+|----|----|----|
+| productId | int | Product ID |
+| quantity | int | Quantity to order |
 
-2. Easier to test
+### ✔ Success Response
 
-3. Scales well for larger systems
+Order placed successfully
+### ❌ Failure Response
 
-4. Matches real-world backend standards
+Insufficient stock
+---
 
-🛠️ Tech Stack
+## 🏗 Architecture Used
 
-| Technology              | Usage                           |
-|-------------------------|----------------------------------|
-| ASP.NET Core Web API    | Backend framework                |
-| Entity Framework Core   | ORM                              |
-| EF Core InMemory        | Database                         |
-| Swagger (Swashbuckle)   | API documentation & testing      |
-| C#                      | Programming language             |
+Controller → Service → Repository → Database
 
-📂 Project Structure
+- **Controllers**: Handle HTTP requests
+- **Services**: Business logic & validation
+- **Repositories**: Data access layer
+- **EF Core InMemory DB**: Used for demo/testing
 
-MiniGroceryOrderSystem/
-├── Controllers/
-│   ├── ProductsController.cs
-│   └── OrdersController.cs
-│
-├── Services/
-│   ├── IOrderService.cs
-│   └── OrderService.cs
-│
-├── Repositories/
-│   ├── IProductRepository.cs
-│   ├── ProductRepository.cs
-│   ├── IOrderRepository.cs
-│   └── OrderRepository.cs
-│
-├── Models/
-│   ├── Product.cs
-│   └── Order.cs
-│
-├── Data/
-│   └── AppDbContext.cs
-│
-├── Program.cs
-└── README.md
+---
 
-▶️ How to Run the Project
+## 🛠 Tech Stack
 
-Prerequisites
-.NET SDK 8.0+
+- ASP.NET Core Web API
+- Entity Framework Core (InMemory)
+- Swagger UI
+- C#
 
-Steps
+---
+
+## 🚀 How to Run
+
+```bash
 dotnet restore
-dotnet build
 dotnet run
 
-Open Swagger UI:
-http://localhost:5034/swagger
+Open Swagger:
+http://localhost:<port>/swagger
+.
 
-📌 API Endpoints
-🔹 GET /products
+🧪 Testing
+● All APIs can be tested directly using Swagger UI.
 
-Returns all available grocery products.
-
-Response
-[
-  { "id": 1, "name": "Apple", "price": 100, "stock": 10 },
-  { "id": 2, "name": "Banana", "price": 40, "stock": 20 },
-  { "id": 3, "name": "Milk", "price": 60, "stock": 15 }
-]
-
-🔹 POST /orders
-
-Places an order for a product.
-
-Parameters
-
-| Name       | Type |
-|------------|------|
-| productId  | int  |
-| quantity   | int  |
-
-Success Response
-Order placed successfully
-
-Failure Response
-Insufficient stock
-
-🔐 Business Rules
-
-● Orders are processed inside a database transaction
-
-● Stock is reduced only if the order succeeds
-
-● Invalid or insufficient stock orders are rejected
-
-● Controller layer contains no business logic
-
-🧠 Design Decisions
-
-● Service Layer
-Centralizes business rules and transactional logic.
-
-● Repository Pattern
-Abstracts data access and improves testability.
-
-● In-Memory Database
-Keeps the demo lightweight and setup-free.
-
-● Swagger
-Enables quick validation and demonstration of APIs.
-
-🚀 Possible Enhancements
-
-● Replace In-Memory DB with SQL Server / PostgreSQL
-
-● Add authentication & authorization
-
-● Add unit tests
-
-📎 Notes
-
-This project is designed for demonstration and evaluation purposes.
-It focuses on correctness, clarity, and clean backend design rather than UI or persistence.
+📌 Notes
+● Designed for clarity and correctness
+● Easily extendable to SQL Server / PostgreSQL
+● Follows clean code & separation of concerns
 
 👨‍💻 Author
-
-Built as a backend demo project to demonstrate clean architecture, transactional integrity, and REST API best practices.
+Anurag Lal
+Full Stack Developer | Software Engineer
